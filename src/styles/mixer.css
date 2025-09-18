@@ -1,3 +1,9 @@
+.mixer {
+  position: absolute;
+  top: 0;
+  margin-top: 40px;
+}
+
 .cube-select {
   display: flex;
   align-items: center;
@@ -8,9 +14,14 @@
 .cube-select select {
   padding: 8px 12px;
   font-size: 16px;
+  outline: none;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
   color: #000;
   cursor: pointer;
+}
+
+.mix-container {
+  width: 300px;
 }
