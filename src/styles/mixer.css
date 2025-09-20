@@ -1,7 +1,14 @@
 .mixer {
   position: absolute;
-  top: 0;
-  margin-top: 40px;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(26, 26, 26, 0.9);
+  padding: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
 }
 
 .cube-select {
@@ -11,17 +18,82 @@
   gap: 15px;
   margin-bottom: 20px;
 }
+
 .cube-select select {
-  padding: 8px 12px;
-  font-size: 16px;
+  padding: 10px 15px;
+  font-size: 14px;
   outline: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-  color: #000;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #000000;
   cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.cube-select select:hover {
+  background-color: #000000;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.reset-mix {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-mix:hover {
+  background: #000000;
+  color: #ffffff;
+  border: 2px solid #ffffff;
 }
 
 .mix-container {
-  width: 300px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.mix-label {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  line-height: 1.4;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .mixer {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 20px auto;
+    width: auto;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .mixer {
+    padding: 15px;
+    max-width: calc(100% - 40px);
+  }
+  
+  .cube-select {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .mix-label {
+    font-size: 14px;
+  }
 }

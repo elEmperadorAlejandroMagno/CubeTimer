@@ -30,7 +30,7 @@ function App() {
       <MixProvider>
         <Mixer />
         <Timer onAddTime={addTime} />
-        <button onClick={handleResetTimes}>Reset times</button>
+        <button className="reset-times-btn" onClick={handleResetTimes}>Reset times</button>
         <Table times={recordedTimes} />
         <Cube2d />
       </MixProvider>

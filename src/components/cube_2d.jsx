@@ -1,9 +1,11 @@
 import '../styles/cube_2d.css';
+import { useState } from 'react';
 import { getCube2D, mixCube2D } from '../utils/cube_utils.js';
 import { useCubeType } from '../context/CubeTypeContext';
 import { useMix } from '../context/MixContext';
 
 export default function Cube2d() {
+  const [isOpen, setIsOpen] = useState(true);
   const { cubeType } = useCubeType();
   const { currentMix } = useMix();
   const size = Number(String(cubeType).split('x')[0]) || 3;
@@ -20,24 +22,34 @@ export default function Cube2d() {
     { name: 'bottom', style: { gridColumn: '2', gridRow: '3' } },
   ];
 
+  const toggleCube = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className="cube-2d">
-      <div className="cube-net">
-        {faceOrder.map(({ name, style }) => (
-          <div key={name} className={`face ${name}`} style={style}>
-            {mixedCube[name].map((row, rowIndex) => (
-              <div key={rowIndex} className="row">
-                {row.map((color, colIndex) => (
-                  <div
-                    key={colIndex}
-                    className="square"
-                    style={{ backgroundColor: color }}
-                  ></div>
-                ))}
-              </div>
-            ))}
-          </div>
-        ))}
+    <div className={`cube-2d-wrapper ${isOpen ? 'open' : 'closed'}`}>
+      <button onClick={toggleCube} className='toggle-cube-btn'>
+        {isOpen ? '◀' : '▶'}
+      </button>
+      
+      <div className={`cube-2d ${isOpen ? 'visible' : 'hidden'}`}>
+        <div className="cube-net">
+          {faceOrder.map(({ name, style }) => (
+            <div key={name} className={`face ${name}`} style={style}>
+              {mixedCube[name].map((row, rowIndex) => (
+                <div key={rowIndex} className="row">
+                  {row.map((color, colIndex) => (
+                    <div
+                      key={colIndex}
+                      className="square"
+                      style={{ backgroundColor: color }}
+                    ></div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
