@@ -1,11 +1,13 @@
 import '../styles/timer.css';
 import { useState, useEffect, useRef } from 'react';
+import { useMix } from '../context/MixContext';
 
 export default function Timer({ onAddTime }) {
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
   const startRef = useRef(null);
   const prevRunningRef = useRef(running);
+  const { generateMix } = useMix();
 
   useEffect(() => {
     let animationFrame;
@@ -37,9 +39,11 @@ export default function Timer({ onAddTime }) {
     if (prevRunningRef.current && !running && time !== 0) {
       const formattedTime = (time / 1000).toFixed(2);
       onAddTime(formattedTime);
+      // Generar nueva mezcla automáticamente después de completar un intento
+      generateMix();
     }
     prevRunningRef.current = running;
-  },[running, time, onAddTime]);
+  },[running, time, onAddTime, generateMix]);
 
   function handleResetTimer() {
     setTime(0);

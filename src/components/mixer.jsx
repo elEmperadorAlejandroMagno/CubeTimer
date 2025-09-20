@@ -1,27 +1,17 @@
 import '../styles/mixer.css';
-import {CUBE_TYPES, CUBE_MOVES, CUBE_MOVES_VARIANTS} from '../constants/cubeData';
-import { useState } from 'react';
+import {CUBE_TYPES} from '../constants/cubeData';
+import { useMix } from '../context/MixContext';
 
 export default function Mixer() {
-    const [mix, setMix] = useState(makeMix(CUBE_MOVES[CUBE_TYPES[0]], CUBE_MOVES_VARIANTS));
-    const [cubeType, setCubeType] = useState(CUBE_TYPES[0]);
+    const { currentMix, cubeType, generateMix, changeCubeType } = useMix();
 
     function handleCubeTypeChange(event) {
         const selectedType = event.target.value;
-        setCubeType(selectedType);
-        setMix(makeMix(CUBE_MOVES[selectedType], CUBE_MOVES_VARIANTS));
+        changeCubeType(selectedType);
     }
+    
     function handleGenerateMix() {
-        setMix(makeMix(CUBE_MOVES[cubeType], CUBE_MOVES_VARIANTS));
-    }
-    function makeMix(moves, movesVariants) {
-        let mix = "";
-        for (let i = 0; i < 20; i++) {
-            const move = moves[Math.floor(Math.random() * moves.length)];
-            const variant = movesVariants[Math.floor(Math.random() * movesVariants.length)];
-            mix += move + variant + " ";
-        }
-        return mix.trim();
+        generateMix();
     }
     
     return (
@@ -35,7 +25,7 @@ export default function Mixer() {
                 <button className="reset-mix" onClick={handleGenerateMix}>Generate Mix</button>
             </div>
             <div className="mix-container">
-                <span className="mix-label">{mix}</span>
+                <span className="mix-label">{currentMix}</span>
             </div>
         </div>
     );

@@ -1,11 +1,14 @@
 import '../styles/cube_2d.css';
-import getCube2D from '../utils/cube_utils.js';
+import { getCube2D, mixCube2D } from '../utils/cube_utils.js';
 import { useCubeType } from '../context/CubeTypeContext';
+import { useMix } from '../context/MixContext';
 
 export default function Cube2d() {
   const { cubeType } = useCubeType();
+  const { currentMix } = useMix();
   const size = Number(String(cubeType).split('x')[0]) || 3;
   const cube = getCube2D(size);
+  const mixedCube = mixCube2D(currentMix, cube);
 
   // Orden y posiciones para la red 2D (net)
   const faceOrder = [
@@ -22,7 +25,7 @@ export default function Cube2d() {
       <div className="cube-net">
         {faceOrder.map(({ name, style }) => (
           <div key={name} className={`face ${name}`} style={style}>
-            {cube[name].map((row, rowIndex) => (
+            {mixedCube[name].map((row, rowIndex) => (
               <div key={rowIndex} className="row">
                 {row.map((color, colIndex) => (
                   <div
