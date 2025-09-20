@@ -16,15 +16,19 @@ export function MixProvider({ children }) {
     const generateMix = (type = cubeType, length = 20) => {
         const moves = CUBE_MOVES[type];
         const variants = CUBE_MOVES_VARIANTS;
-        let mix = "";
-        
+        let mixArr = [];
+
         for (let i = 0; i < length; i++) {
-            const move = moves[Math.floor(Math.random() * moves.length)];
-            const variant = variants[Math.floor(Math.random() * variants.length)];
-            mix += move + variant + " ";
+            let moveFull = '';
+            do {
+                const move = moves[Math.floor(Math.random() * moves.length)];
+                const variant = variants[Math.floor(Math.random() * variants.length)];
+                moveFull = move + variant;
+            } while (i > 0 && moveFull[0] === mixArr[i - 1][0]);
+            mixArr.push(moveFull);
         }
         
-        const generatedMix = mix.trim();
+        const generatedMix = mixArr.join(' ').trim();
         setCurrentMix(generatedMix);
         return generatedMix;
     };
