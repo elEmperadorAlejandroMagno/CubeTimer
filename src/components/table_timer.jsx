@@ -17,6 +17,11 @@ export default function Table({ times = [] }) {
     return Math.min(...timesList.map(time => parseFloat(time))).toFixed(2);
   };
 
+  const getLastTime = (timesList) => {
+    if (timesList.length === 0) return '0.00';
+    return parseFloat(timesList[timesList.length - 1]).toFixed(2);
+  };
+
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
   };
@@ -37,6 +42,10 @@ export default function Table({ times = [] }) {
           <span className="stat-label">Best:</span>
           <span className="stat-value">{getBestTime(TimesRegistered)}s</span>
         </div>
+        <div className="stat">
+          <span className="stat-label">Last:</span>
+          <span className="stat-value">{getLastTime(TimesRegistered)}</span>
+          </div>
         <button className="toggle-table-btn" onClick={toggleExpanded}>
           {isExpanded ? 'Hide Times' : 'Show All Times'} 
           <span className={`arrow ${isExpanded ? 'up' : 'down'}`}>▼</span>

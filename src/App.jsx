@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { CubeTypeProvider } from './context/CubeTypeContext.jsx'
 import { MixProvider } from './context/MixContext.jsx'
 
 import Mixer from './components/mixer.jsx'
@@ -26,15 +25,13 @@ function App() {
   }
 
   return (
-    <CubeTypeProvider>
-      <MixProvider>
-        <Mixer />
-        <Timer onAddTime={addTime} />
-        <button className="reset-times-btn" onClick={handleResetTimes}>Reset times</button>
-        <Table times={recordedTimes} />
-        <Cube2d />
-      </MixProvider>
-    </CubeTypeProvider>
+    <MixProvider>
+      <Mixer />
+      <Timer onAddTime={addTime} />
+      <button className="reset-times-btn" onClick={handleResetTimes}>Reset times</button>
+      <Table times={recordedTimes} />
+      <Cube2d />
+    </MixProvider>
   )
 }
 
