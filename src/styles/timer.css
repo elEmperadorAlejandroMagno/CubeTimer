@@ -11,7 +11,7 @@
 }
 
 .time {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -35,4 +35,68 @@
   background: #000000;
   color: #ffffff;
   border: 2px solid #ffffff;
+}
+
+/* Estados del timer */
+.timer.preparing .time {
+  color: #ff6b6b;
+  animation: pulse 0.5s ease-in-out infinite alternate;
+}
+
+.timer.ready .time {
+  color: #51cf66;
+  animation: flash 0.3s ease-in-out infinite alternate;
+  text-shadow: 0 0 20px #51cf66;
+}
+
+.timer.running .time {
+  color: #339af0;
+  animation: none;
+}
+
+/* Barra de progreso para la preparación */
+.preparation-progress {
+  width: 200px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b6b, #feca57, #51cf66);
+  transition: width 0.1s ease;
+  border-radius: 3px;
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .time {
+    font-size: 3rem;
+  }
+  
+  .preparation-progress {
+    width: 150px;
+  }
 }

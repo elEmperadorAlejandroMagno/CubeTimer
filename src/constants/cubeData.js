@@ -1,14 +1,14 @@
 const CUBE_TYPES = ['2x2', '3x3', '4x4', '5x5', '6x6', '7x7', 'Pyraminx', 'Megaminx', 'Skewb'];
 const CUBE_MOVES = {
-    '2x2': ['U', "U", 'D', "D", 'L', "L", 'R', "R", 'F', "F", 'B', "B"],
-    '3x3': ['U', "U", 'D', "D", 'L', "L", 'R', "R", 'F', "F", 'B', "B"],
-    '4x4': ['U', "U", 'D', "D", 'L', "L", 'R', "R", 'F', "F", 'B', "B", 'u', "u", 'd', "d", 'l', "l", 'r', "r", 'f', "f", 'b', "b"],
-    '5x5': ['U', "U", 'D', "D", 'L', "L", 'R', "R", 'F', "F", 'B', "B", 'u', "u", 'd', "d", 'l', "l", 'r', "r", 'f', "f", 'b', "b"],
-    '6x6': ['U', "U", 'D', "D", 'L', "L", 'R', "R", 'F', "F", 'B', "B", 'u', "u", 'd', "d", 'l', "l", 'r', "r", 'f', "f", 'b', "b", 'Uw', "Uw", 'Dw', "Dw", 'Lw', "Lw", 'Rw', "Rw", 'Fw', "Fw", 'Bw', "Bw"],
-    '7x7': ['U', "U", 'D', "D", 'L', "L", 'R', "R", 'F', "F", 'B', "B", 'u', "u", 'd', "d", 'l', "l", 'r', "r", 'f', "f", 'b', "b", 'Uw', "Uw", "Dw", "Dw", 'Lw', "Lw", "Rw", "Rw", 'Fw', "Fw", "Bw", "Bw"],
-    'Pyraminx': ['U', "U", 'L', "L", 'R', "R", 'B', "B", 'u', "u", 'l', "l", 'r', "r", 'b', "b"],
+    '2x2': ["U", "D", "L", "R", "F", "B"],
+    '3x3': ["U", "D", "L", "R", "F", "B"],
+    '4x4': ["U", "D", "L", "R", "F", "B", "Uw", "Lw", "Rw", "Fw", "Bw"],
+    '5x5': ["U", "D", "L", "R", "F", "B", "Uw", "Lw", "Rw", "Fw", "Bw"],
+    '6x6': ["U", "D", "L", "R", "F", "B", "Uw", "Lw", "Rw", "Fw", "Bw"],
+    '7x7': ["U", "D", "L", "R", "F", "B", "Uw", "Lw", "Rw", "Fw", "Bw"],
+    'Pyraminx': ["U", "L", "R", "B", "Uw", "Lw", "Rw", "Bw"],
     'Megaminx': ["PENDIENTE"],
-    'Skewb': ['U', "U", 'D', "D", 'L', "L", 'R', "R"]   
+    'Skewb': ["U", "D", "L", "R"]   
 }
 const CUBE_MOVES_VARIANTS = ['', "'", "2"];
 

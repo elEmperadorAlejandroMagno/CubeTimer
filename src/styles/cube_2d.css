@@ -80,8 +80,7 @@
 
 .face {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  /* Grid size is now set dynamically via inline styles */
   gap: 2px;
   padding: 3px;
   background-color: #1a1a1a;

@@ -1,16 +1,19 @@
 import '../styles/cube_2d.css';
 import { useState } from 'react';
 import { getCube2D, mixCube2D } from '../utils/cube_utils.js';
-import { useCubeType } from '../context/CubeTypeContext';
 import { useMix } from '../context/MixContext';
 
 export default function Cube2d() {
   const [isOpen, setIsOpen] = useState(true);
-  const { cubeType } = useCubeType();
-  const { currentMix } = useMix();
+  const { cubeType, currentMix } = useMix();
   const size = Number(String(cubeType).split('x')[0]) || 3;
   const cube = getCube2D(size);
   const mixedCube = mixCube2D(currentMix, cube);
+
+  // CSS variables dinámicas para el tamaño del cubo
+  const cubeStyles = {
+    '--face-grid-size': size,
+  };
 
   // Orden y posiciones para la red 2D (net)
   const faceOrder = [
@@ -32,10 +35,18 @@ export default function Cube2d() {
         {isOpen ? '◀' : '▶'}
       </button>
       
-      <div className={`cube-2d ${isOpen ? 'visible' : 'hidden'}`}>
+      <div className={`cube-2d ${isOpen ? 'visible' : 'hidden'}`} style={cubeStyles}>
         <div className="cube-net">
           {faceOrder.map(({ name, style }) => (
-            <div key={name} className={`face ${name}`} style={style}>
+            <div 
+              key={name} 
+              className={`face ${name}`} 
+              style={{
+                ...style,
+                gridTemplateColumns: `repeat(${size}, 1fr)`,
+                gridTemplateRows: `repeat(${size}, 1fr)`
+              }}
+            >
               {mixedCube[name].map((row, rowIndex) => (
                 <div key={rowIndex} className="row">
                   {row.map((color, colIndex) => (
