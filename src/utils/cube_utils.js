@@ -52,6 +52,25 @@ const makeMove = {
     'B': (cube) => moveB(cube),
     "B'": (cube) => moveBPrime(cube),
     'B2': (cube) => moveB2(cube),
+    // Movimientos de capas anchas (wide moves)
+    'Rw': (cube) => moveRw(cube),
+    "Rw'": (cube) => moveRwPrime(cube),
+    'Rw2': (cube) => moveRw2(cube),
+    'Lw': (cube) => moveLw(cube),
+    "Lw'": (cube) => moveLwPrime(cube),
+    'Lw2': (cube) => moveLw2(cube),
+    'Uw': (cube) => moveUw(cube),
+    "Uw'": (cube) => moveUwPrime(cube),
+    'Uw2': (cube) => moveUw2(cube),
+    'Dw': (cube) => moveDw(cube),
+    "Dw'": (cube) => moveDwPrime(cube),
+    'Dw2': (cube) => moveDw2(cube),
+    'Fw': (cube) => moveFw(cube),
+    "Fw'": (cube) => moveFwPrime(cube),
+    'Fw2': (cube) => moveFw2(cube),
+    'Bw': (cube) => moveBw(cube),
+    "Bw'": (cube) => moveBwPrime(cube),
+    'Bw2': (cube) => moveBw2(cube),
 }
 
 // Funciones de movimiento U (Top)
@@ -535,6 +554,502 @@ function moveB2(cube) {
     moveB(cube);
     return cube;
 }
+
+// Funciones de movimiento Rw (Right wide) - mueve las dos capas derechas
+function moveRw(cube) {
+    // Realizar movimiento R normal
+    moveR(cube);
+    
+    // Realizar movimiento de la capa interna (segunda desde la derecha)
+    const size = cube.right.length;
+    const col = size - 2; // Segunda columna desde la derecha
+    const temp = [];
+    
+    // Guardar la segunda columna desde la derecha del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[i][col];
+    }
+    
+    // front <- bottom
+    for (let i = 0; i < size; i++) {
+        cube.front[i][col] = cube.bottom[i][col];
+    }
+    
+    // bottom <- back (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[i][col] = cube.back[size - 1 - i][1]; // Segunda desde la izquierda en back
+    }
+    
+    // back <- top (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.back[i][1] = cube.top[size - 1 - i][col];
+    }
+    
+    // top <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.top[i][col] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveRwPrime(cube) {
+    // Realizar movimiento R' normal
+    moveRPrime(cube);
+    
+    // Realizar movimiento inverso de la capa interna
+    const size = cube.right.length;
+    const col = size - 2; // Segunda columna desde la derecha
+    const temp = [];
+    
+    // Guardar la segunda columna desde la derecha del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[i][col];
+    }
+    
+    // front <- top
+    for (let i = 0; i < size; i++) {
+        cube.front[i][col] = cube.top[i][col];
+    }
+    
+    // top <- back (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.top[i][col] = cube.back[size - 1 - i][1];
+    }
+    
+    // back <- bottom (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.back[i][1] = cube.bottom[size - 1 - i][col];
+    }
+    
+    // bottom <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[i][col] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveRw2(cube) {
+    moveRw(cube);
+    moveRw(cube);
+    return cube;
+}
+
+// Funciones de movimiento Lw (Left wide) - mueve las dos capas izquierdas
+function moveLw(cube) {
+    // Realizar movimiento L normal
+    moveL(cube);
+    
+    // Realizar movimiento de la capa interna (segunda desde la izquierda)
+    const size = cube.left.length;
+    const col = 1; // Segunda columna desde la izquierda
+    const temp = [];
+    
+    // Guardar la segunda columna desde la izquierda del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[i][col];
+    }
+    
+    // front <- top
+    for (let i = 0; i < size; i++) {
+        cube.front[i][col] = cube.top[i][col];
+    }
+    
+    // top <- back (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.top[i][col] = cube.back[size - 1 - i][size - 2]; // Segunda desde la derecha en back
+    }
+    
+    // back <- bottom (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.back[i][size - 2] = cube.bottom[size - 1 - i][col];
+    }
+    
+    // bottom <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[i][col] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveLwPrime(cube) {
+    // Realizar movimiento L' normal
+    moveLPrime(cube);
+    
+    // Realizar movimiento inverso de la capa interna
+    const size = cube.left.length;
+    const col = 1; // Segunda columna desde la izquierda
+    const temp = [];
+    
+    // Guardar la segunda columna desde la izquierda del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[i][col];
+    }
+    
+    // front <- bottom
+    for (let i = 0; i < size; i++) {
+        cube.front[i][col] = cube.bottom[i][col];
+    }
+    
+    // bottom <- back (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[i][col] = cube.back[size - 1 - i][size - 2];
+    }
+    
+    // back <- top (invertido)
+    for (let i = 0; i < size; i++) {
+        cube.back[i][size - 2] = cube.top[size - 1 - i][col];
+    }
+    
+    // top <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.top[i][col] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveLw2(cube) {
+    moveLw(cube);
+    moveLw(cube);
+    return cube;
+}
+
+// Funciones de movimiento Uw (Up wide) - mueve las dos capas superiores
+function moveUw(cube) {
+    // Realizar movimiento U normal
+    moveU(cube);
+    
+    // Realizar movimiento de la capa interna (segunda desde arriba)
+    const size = cube.top.length;
+    const row = 1; // Segunda fila desde arriba
+    const temp = [];
+    
+    // Guardar la segunda fila del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[row][i];
+    }
+    
+    // front <- right
+    for (let i = 0; i < size; i++) {
+        cube.front[row][i] = cube.right[row][i];
+    }
+    
+    // right <- back
+    for (let i = 0; i < size; i++) {
+        cube.right[row][i] = cube.back[row][i];
+    }
+    
+    // back <- left
+    for (let i = 0; i < size; i++) {
+        cube.back[row][i] = cube.left[row][i];
+    }
+    
+    // left <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.left[row][i] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveUwPrime(cube) {
+    // Realizar movimiento U' normal
+    moveUPrime(cube);
+    
+    // Realizar movimiento inverso de la capa interna
+    const size = cube.top.length;
+    const row = 1; // Segunda fila desde arriba
+    const temp = [];
+    
+    // Guardar la segunda fila del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[row][i];
+    }
+    
+    // front <- left
+    for (let i = 0; i < size; i++) {
+        cube.front[row][i] = cube.left[row][i];
+    }
+    
+    // left <- back
+    for (let i = 0; i < size; i++) {
+        cube.left[row][i] = cube.back[row][i];
+    }
+    
+    // back <- right
+    for (let i = 0; i < size; i++) {
+        cube.back[row][i] = cube.right[row][i];
+    }
+    
+    // right <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.right[row][i] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveUw2(cube) {
+    moveUw(cube);
+    moveUw(cube);
+    return cube;
+}
+
+// Funciones de movimiento Dw (Down wide) - mueve las dos capas inferiores
+function moveDw(cube) {
+    // Realizar movimiento D normal
+    moveD(cube);
+    
+    // Realizar movimiento de la capa interna (segunda desde abajo)
+    const size = cube.bottom.length;
+    const row = size - 2; // Segunda fila desde abajo
+    const temp = [];
+    
+    // Guardar la segunda fila desde abajo del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[row][i];
+    }
+    
+    // front <- left
+    for (let i = 0; i < size; i++) {
+        cube.front[row][i] = cube.left[row][i];
+    }
+    
+    // left <- back
+    for (let i = 0; i < size; i++) {
+        cube.left[row][i] = cube.back[row][i];
+    }
+    
+    // back <- right
+    for (let i = 0; i < size; i++) {
+        cube.back[row][i] = cube.right[row][i];
+    }
+    
+    // right <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.right[row][i] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveDwPrime(cube) {
+    // Realizar movimiento D' normal
+    moveDPrime(cube);
+    
+    // Realizar movimiento inverso de la capa interna
+    const size = cube.bottom.length;
+    const row = size - 2; // Segunda fila desde abajo
+    const temp = [];
+    
+    // Guardar la segunda fila desde abajo del frente
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.front[row][i];
+    }
+    
+    // front <- right
+    for (let i = 0; i < size; i++) {
+        cube.front[row][i] = cube.right[row][i];
+    }
+    
+    // right <- back
+    for (let i = 0; i < size; i++) {
+        cube.right[row][i] = cube.back[row][i];
+    }
+    
+    // back <- left
+    for (let i = 0; i < size; i++) {
+        cube.back[row][i] = cube.left[row][i];
+    }
+    
+    // left <- temp (front original)
+    for (let i = 0; i < size; i++) {
+        cube.left[row][i] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveDw2(cube) {
+    moveDw(cube);
+    moveDw(cube);
+    return cube;
+}
+
+// Funciones de movimiento Fw (Front wide) - mueve las dos capas frontales
+function moveFw(cube) {
+    // Realizar movimiento F normal
+    moveF(cube);
+    
+    // Realizar movimiento de la capa interna (segunda desde el frente)
+    const size = cube.front.length;
+    const lastRow = size - 1;
+    const row = size - 2; // Segunda fila desde abajo en top/bottom
+    const temp = [];
+    
+    // Guardar la segunda fila desde abajo del top
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.top[row][i];
+    }
+    
+    // top <- left (segunda columna desde la derecha, invertida)
+    for (let i = 0; i < size; i++) {
+        cube.top[row][i] = cube.left[lastRow - i][size - 2];
+    }
+    
+    // left (segunda columna desde la derecha) <- bottom (segunda fila desde arriba)
+    for (let i = 0; i < size; i++) {
+        cube.left[i][size - 2] = cube.bottom[1][i];
+    }
+    
+    // bottom (segunda fila desde arriba) <- right (segunda columna desde la izquierda, invertida)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[1][i] = cube.right[lastRow - i][1];
+    }
+    
+    // right (segunda columna desde la izquierda) <- temp (top original)
+    for (let i = 0; i < size; i++) {
+        cube.right[i][1] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveFwPrime(cube) {
+    // Realizar movimiento F' normal
+    moveFPrime(cube);
+    
+    // Realizar movimiento inverso de la capa interna
+    const size = cube.front.length;
+    const lastRow = size - 1;
+    const row = size - 2; // Segunda fila desde abajo en top/bottom
+    const temp = [];
+    
+    // Guardar la segunda fila desde abajo del top
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.top[row][i];
+    }
+    
+    // top <- right (segunda columna desde la izquierda)
+    for (let i = 0; i < size; i++) {
+        cube.top[row][i] = cube.right[i][1];
+    }
+    
+    // right (segunda columna desde la izquierda) <- bottom (segunda fila desde arriba, invertida)
+    for (let i = 0; i < size; i++) {
+        cube.right[i][1] = cube.bottom[1][lastRow - i];
+    }
+    
+    // bottom (segunda fila desde arriba) <- left (segunda columna desde la derecha)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[1][i] = cube.left[i][size - 2];
+    }
+    
+    // left (segunda columna desde la derecha) <- temp (top original, invertido)
+    for (let i = 0; i < size; i++) {
+        cube.left[i][size - 2] = temp[lastRow - i];
+    }
+    
+    return cube;
+}
+
+function moveFw2(cube) {
+    moveFw(cube);
+    moveFw(cube);
+    return cube;
+}
+
+// Funciones de movimiento Bw (Back wide) - mueve las dos capas traseras
+function moveBw(cube) {
+    // Realizar movimiento B normal
+    moveB(cube);
+    
+    // Realizar movimiento de la capa interna (segunda desde atrás)
+    const size = cube.back.length;
+    const lastCol = size - 1;
+    const row = 1; // Segunda fila desde arriba
+    const temp = [];
+    
+    // Guardar la segunda fila desde arriba del top
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.top[row][i];
+    }
+    
+    // top (segunda fila desde arriba) <- right (segunda columna desde la derecha)
+    for (let i = 0; i < size; i++) {
+        cube.top[row][i] = cube.right[i][size - 2];
+    }
+    
+    // right (segunda columna desde la derecha) <- bottom (segunda fila desde abajo, invertida)
+    for (let i = 0; i < size; i++) {
+        cube.right[i][size - 2] = cube.bottom[size - 2][lastCol - i];
+    }
+    
+    // bottom (segunda fila desde abajo) <- left (segunda columna desde la izquierda)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[size - 2][i] = cube.left[i][1];
+    }
+    
+    // left (segunda columna desde la izquierda) <- temp (top original, invertido)
+    for (let i = 0; i < size; i++) {
+        cube.left[i][1] = temp[lastCol - i];
+    }
+    
+    return cube;
+}
+
+function moveBwPrime(cube) {
+    // Realizar movimiento B' normal
+    moveBPrime(cube);
+    
+    // Realizar movimiento inverso de la capa interna
+    const size = cube.back.length;
+    const lastCol = size - 1;
+    const row = 1; // Segunda fila desde arriba
+    const temp = [];
+    
+    // Guardar la segunda fila desde arriba del top
+    for (let i = 0; i < size; i++) {
+        temp[i] = cube.top[row][i];
+    }
+    
+    // top (segunda fila desde arriba) <- left (segunda columna desde la izquierda, invertida)
+    for (let i = 0; i < size; i++) {
+        cube.top[row][i] = cube.left[lastCol - i][1];
+    }
+    
+    // left (segunda columna desde la izquierda) <- bottom (segunda fila desde abajo)
+    for (let i = 0; i < size; i++) {
+        cube.left[i][1] = cube.bottom[size - 2][i];
+    }
+    
+    // bottom (segunda fila desde abajo) <- right (segunda columna desde la derecha, invertida)
+    for (let i = 0; i < size; i++) {
+        cube.bottom[size - 2][i] = cube.right[lastCol - i][size - 2];
+    }
+    
+    // right (segunda columna desde la derecha) <- temp (top original)
+    for (let i = 0; i < size; i++) {
+        cube.right[i][size - 2] = temp[i];
+    }
+    
+    return cube;
+}
+
+function moveBw2(cube) {
+    moveBw(cube);
+    moveBw(cube);
+    return cube;
+}
+
+// movimientos Rw, Lw, Uw, Dw, Fw, Bw (doble capa) se pueden implementar de manera similar
+
+
+
+
 
 function rotateMatrixClockwise(matrix) {
   const n = matrix.length;
