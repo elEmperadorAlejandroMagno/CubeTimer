@@ -41,28 +41,6 @@
   color: #888;
 }
 
-.reset-times-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: #ffffff;
-  color: #000000;
-  border: 2px solid #000000;
-  padding: 12px 20px;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.reset-times-btn:hover {
-  background: #000000;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-}
-
 @media (max-width: 768px) {
   .reset-times-btn {
     position: relative;
