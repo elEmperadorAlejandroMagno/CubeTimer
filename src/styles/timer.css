@@ -13,7 +13,7 @@
 .time {
   font-size: 3rem;
   font-weight: bold;
-  color: #ffffff;
+  color: var(--centralTextTimerColor, #ffffff);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-family: 'Courier New', monospace;
   letter-spacing: 2px;
@@ -39,18 +39,18 @@
 
 /* Estados del timer */
 .timer.preparing .time {
-  color: #ff6b6b;
+  color: #ff6b6b !important; /* Solo el estado de preparación mantiene color fijo */
   animation: pulse 0.5s ease-in-out infinite alternate;
 }
 
 .timer.ready .time {
-  color: #51cf66;
+  /* Usa el color personalizado */
   animation: flash 0.3s ease-in-out infinite alternate;
-  text-shadow: 0 0 20px #51cf66;
+  text-shadow: 0 0 20px currentColor;
 }
 
 .timer.running .time {
-  color: #339af0;
+  /* Usa el color personalizado */
   animation: none;
 }
 

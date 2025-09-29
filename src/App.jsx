@@ -5,6 +5,7 @@ import Mixer from './components/mixer.jsx'
 import Timer from './components/timer.jsx'
 import Table from './components/table_timer.jsx'
 import Cube2d from './components/cube_2d.jsx'
+import Options from './components/options.jsx'
 
 import './App.css'
 
@@ -17,6 +18,7 @@ function App() {
         <Timer />
         <Table />
         <Cube2d />
+        <Options />
       </TimesProvider>
     </MixProvider>
   )
