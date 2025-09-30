@@ -24,10 +24,13 @@
 .cube-2d {
   width: 100%;
   max-width: 300px;
-  overflow: visible;
+  overflow: hidden;
   transition: all 0.5s ease;
   transform: translateX(0);
   opacity: 1;
+  border: 1px solid #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 .cube-2d.visible {
@@ -43,7 +46,7 @@
 .toggle-cube-btn {
   width: 35px;
   height: 35px;
-  background: inherit;
+  background: #ffff;
   color: #000;
   border-radius: 50%;
   border-color: #000;
@@ -86,6 +89,9 @@
   border-radius: 15px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  word-wrap: break-word;
 }
 
 .face {
