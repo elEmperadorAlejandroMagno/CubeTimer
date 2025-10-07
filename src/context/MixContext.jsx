@@ -18,18 +18,59 @@ export function MixProvider({ children }) {
         const variants = CUBE_MOVES_VARIANTS;
         let mixArr = [];
 
-        for (let i = 0; i < length; i++) {
-            let moveFull = '';
-            do {
-                const move = moves[Math.floor(Math.random() * moves.length)];
-                const variant = variants[Math.floor(Math.random() * variants.length)];
-                moveFull = move + variant;
-            } while (i > 0 && moveFull[0] === mixArr[i - 1][0]);
-            mixArr.push(moveFull);
+        if (type === 'Megaminx') {
+            length = 50; // Longitud fija para Megaminx
+            const LAST_ROW_MOVE = ["U", "U'"];
+            let count = 0;
+
+            for (let i = 0; i < length; i++) {
+                if (count === 10) {
+                    mixArr.push(LAST_ROW_MOVE[Math.floor(Math.random() * LAST_ROW_MOVE.length)]);
+                    count = 0;
+                }
+                let move = "";
+
+                while (move === "" || move === mixArr[i - 1]) {
+                    move = moves[Math.floor(Math.random() * moves.length)];
+                }
+                mixArr.push(move);
+                count++;
+            }
+        } else if (type === 'Square-1') {
+            for (let i = 0; i < length; i++) {
+                    let move = "";
+                    while (move === "" || move === mixArr[i - 1]) {
+                    move = moves[Math.floor(Math.random() * moves.length)];
+                }
+                mixArr.push(move);
+            }
+        } else if (type === "Skewb") {
+            length = 11; // Longitud fija para Skewb
+
+            for (let i = 0; i < length; i++) {
+                let move = "";
+                
+                while (move === "" || move === mixArr[i - 1]) {
+                    move = moves[Math.floor(Math.random() * moves.length)];
+                }
+                mixArr.push(move);
+            }
+        } else {
+            for (let i = 0; i < length; i++) {
+                let moveFull = '';
+
+                do {
+                    const move = moves[Math.floor(Math.random() * moves.length)];
+                    const variant = variants[Math.floor(Math.random() * variants.length)];
+                    moveFull = move + variant;
+                } while (i > 0 && moveFull[0] === mixArr[i - 1][0]);
+                mixArr.push(moveFull);
+            }
         }
         
         const generatedMix = mixArr.join(' ').trim();
         setCurrentMix(generatedMix);
+
         return generatedMix;
     };
 

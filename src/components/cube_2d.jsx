@@ -9,6 +9,8 @@ export default function Cube2d() {
   const size = Number(String(cubeType).split('x')[0]) || 3;
   const cube = getCube2D(size);
   const mixedCube = mixCube2D(currentMix, cube);
+  const AVAILABLE2DCUBES = ['2x2', '3x3', '4x4', '5x5', '6x6', '7x7'];
+  const CUBEISAVAILIABLE = AVAILABLE2DCUBES.includes(cubeType);
 
   // CSS variables dinámicas para el tamaño del cubo
   const cubeStyles = {
@@ -36,31 +38,38 @@ export default function Cube2d() {
       </button>
       
       <div className={`cube-2d ${isOpen ? 'visible' : 'hidden'}`} style={cubeStyles}>
-        <div className="cube-net">
-          {faceOrder.map(({ name, style }) => (
-            <div 
-              key={name} 
-              className={`face ${name}`} 
-              style={{
-                ...style,
-                gridTemplateColumns: `repeat(${size}, 1fr)`,
-                gridTemplateRows: `repeat(${size}, 1fr)`
-              }}
-            >
-              {mixedCube[name].map((row, rowIndex) => (
-                <div key={rowIndex} className="row">
-                  {row.map((color, colIndex) => (
-                    <div
-                      key={colIndex}
-                      className="square"
-                      style={{ backgroundColor: color }}
-                    ></div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        { 
+        CUBEISAVAILIABLE ?
+          <div className="cube-net">
+            {faceOrder.map(({ name, style }) => (
+              <div 
+                key={name} 
+                className={`face ${name}`} 
+                style={{
+                  ...style,
+                  gridTemplateColumns: `repeat(${size}, 1fr)`,
+                  gridTemplateRows: `repeat(${size}, 1fr)`
+                }}
+              >
+                {mixedCube[name].map((row, rowIndex) => (
+                  <div key={rowIndex} className="row">
+                    {row.map((color, colIndex) => (
+                      <div
+                        key={colIndex}
+                        className="square"
+                        style={{ backgroundColor: color }}
+                      ></div>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          :
+          <div className="unsupported-message">
+            <p>El cubo {cubeType} no es compatible con la vista 2D.</p>
+          </div>
+        }
       </div>
     </div>
   );
